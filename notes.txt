@@ -1,0 +1,2 @@
+-- list of dependencies I may need and not to forget secrets will be in the appsettings which is in git ignore
+docker run --name postgresDb -e POSTGRES_PASSWORD=mysecretpassword -d postgres  //postgres container default user postgres password as chosen
