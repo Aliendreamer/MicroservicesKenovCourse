@@ -9,7 +9,7 @@ using server.Models;
 namespace server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class BookController : ControllerBase
     {
 
@@ -23,14 +23,14 @@ namespace server.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<Book>> BookList()
+        [HttpGet,Route("BookList")]
+        public async Task<IEnumerable<Book>> List()
         {
-            return await _mediator.Send(new BookList.Query());
+            return await _mediator.Send(new BookListQuery());
         }
 
-        [HttpGet]
-        public IEnumerable<Book> Get()
+        [HttpGet,Route("BookDetail/{id}")]
+        public IEnumerable<Book> Get(int id)
         {
             return null;
         }

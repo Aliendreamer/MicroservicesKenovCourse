@@ -1,2 +1,13 @@
 -- list of dependencies I may need and not to forget secrets will be in the appsettings which is in git ignore
-docker run --name postgresDb -e POSTGRES_PASSWORD=mysecretpassword -d postgres  //postgres container default user postgres password as chosen
+.net api on 5000
+postgresdb on 5001
+docker run --name postgresDb -e POSTGRES_PASSWORD=mysecretpassword -p 5001:5432 -d postgres  //postgres container default user postgres password as chosen
+/seq container start command should make docker compose at one point
+docker run \
+  -d \
+  --restart unless-stopped \
+  --name seq \
+  -e ACCEPT_EULA=Y \
+  -v $HOST_PATH_TO_SEQ:/data \
+  -p 8081:80 \
+  datalust/seq:latest

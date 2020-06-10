@@ -10,9 +10,9 @@ namespace server.CQRS.Queries
     }
     public class BaseQuery<T> : IBaseQuery<T> where T:class
     {
-        public Task<T> Get(string query)
+      public async Task<T> Get(string query)
       {
-         throw new System.NotImplementedException();
+        return null;     
       }
 
       public Task<IEnumerable<T>> GetList(string query)

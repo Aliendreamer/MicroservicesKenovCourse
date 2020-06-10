@@ -6,26 +6,21 @@ using System.Threading.Tasks;
 
 namespace server.CQRS.Queries
 {        
-    public class BookList : BaseQuery<Book>
-    {
-        public class Query : IRequest<IEnumerable<Book>> { }
+    public class BookListQuery : IRequest<IEnumerable<Book>> { }
+    public class BookList:IRequestHandler<BookListQuery, IEnumerable<Book>>
+    { 
+            private IBaseQuery<Book> Query { get; }
 
-        public class Handler : IRequestHandler<Query, IEnumerable<Book>>
-        {
-            private BookList ListQuery { get; }
-
-            public Handler(BookList listQuery)
+            public BookList(IBaseQuery<Book> baseQuery)
             {
-                ListQuery = listQuery;
+                Query = baseQuery;
             }
 
-
-            public async Task<IEnumerable<Book>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<Book>> Handle(BookListQuery request, CancellationToken cancellationToken)
             {
-                var books = await this.ListQuery.GetList("");
+                var books = await Query.GetList("");
                 return books;
             }
-        }
     }
 
 }

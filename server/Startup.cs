@@ -13,11 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using server.CQRS.Queries;
-
+using Microsoft.OpenApi.Models;
+using Serilog;
 namespace server
 {
     public class Startup
-    {
+    {   
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -25,14 +26,20 @@ namespace server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+             services.AddSwaggerGen(c =>
+             {
+                    c.SwaggerDoc("v1", new OpenApiInfo { Title = "course api", Version = "v1" });
+             });
+            
             services.AddControllers();
-            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);                
+            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);   
+            services.AddTransient(typeof(IBaseQuery<>),typeof(BaseQuery<>));
+
+             
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -41,11 +48,16 @@ namespace server
             }
 
             app.UseHttpsRedirection();
-
+            app.UseSerilogRequestLogging();
+            app.UseStaticFiles();
             app.UseRouting();
-
             app.UseAuthorization();
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                 c.RoutePrefix = string.Empty;
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
