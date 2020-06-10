@@ -1,5 +1,9 @@
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Dapper;
+using Microsoft.Extensions.Configuration;
+using Npgsql;
 
 namespace server.CQRS.Queries
 {
@@ -10,14 +14,25 @@ namespace server.CQRS.Queries
     }
     public class BaseQuery<T> : IBaseQuery<T> where T:class
     {
+          public IConfiguration configuration { get; set; }
+         public BaseQuery(IConfiguration configuration)
+         {
+            this.configuration = configuration;
+         }
+
+       
       public async Task<T> Get(string query)
       {
-        return null;     
+          using var connection = new NpgsqlConnection("");
+          await connection.OpenAsync();
+          return  await connection.QuerySingleAsync<T>(query);
       }
 
-      public Task<IEnumerable<T>> GetList(string query)
+      public async Task<IEnumerable<T>> GetList(string query)
       {
-         throw new System.NotImplementedException();
+          using var connection = new NpgsqlConnection("");
+          await connection.OpenAsync();
+          return  await connection.QueryAsync<T>(query);
       }
    }
 

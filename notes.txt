@@ -1,10 +1,7 @@
 -- list of dependencies I may need and not to forget secrets will be in the appsettings which is in git ignore
 .net api on 5000
-mssql on 5001
---ms server 2019 docker container cant run on my arch for some reason so we go 2017
- docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=kenovCourse10" \
-   -p 5001:1433 --name courseDb \
-   -d mcr.microsoft.com/mssql/server:2017-latest
+postgres on 5001
+ docker run --name postgresDb -e POSTGRES_USER=sa -e POSTGRES_PASSWORD=passw0rd -p 5001:5432 -d postgres
 
 /seq container start command should make docker compose at one point
 docker run \

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using server.CQRS.Queries;
 using Microsoft.OpenApi.Models;
 using Serilog;
+
 namespace server
 {
     public class Startup
@@ -36,8 +37,6 @@ namespace server
             services.AddControllers();
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);   
             services.AddTransient(typeof(IBaseQuery<>),typeof(BaseQuery<>));
-
-             
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
