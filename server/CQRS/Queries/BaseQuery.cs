@@ -23,7 +23,7 @@ namespace server.CQRS.Queries
        
       public async Task<T> Get(string query)
       {
-          using var connection = new NpgsqlConnection("");
+          using var connection = new NpgsqlConnection(configuration.GetConnectionString("PostgresString"));
           await connection.OpenAsync();
           return  await connection.QuerySingleAsync<T>(query);
       }
