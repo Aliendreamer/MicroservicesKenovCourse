@@ -12,3 +12,14 @@ docker run \
   -v $HOST_PATH_TO_SEQ:/data \
   -p 8081:80 \
   datalust/seq:latest
+
+
+
+// to open file in the pdf js just a snippet for later
+public ActionResult GetPdf(string fileName)
+{
+    string filePath = "~/Content/files/" + fileName;
+    Response.AddHeader("Content-Disposition", "inline; filename=" + fileName);        
+
+    return File(filePath, "application/pdf");
+}

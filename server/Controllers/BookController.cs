@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using server.CQRS.Commands;
 using server.CQRS.Queries;
 using server.Models;
 
@@ -24,15 +25,22 @@ namespace server.Controllers
         }
 
         [HttpGet,Route("BookList")]
-        public async Task<IEnumerable<Book>> List()
+        public async  Task<IEnumerable<Book>> List()
         {
-            return await _mediator.Send(new BookListQuery());
+            return await _mediator.Send(new BookList());
         }
 
         [HttpGet,Route("BookDetail/{id}")]
-        public IEnumerable<Book> Get(int id)
+        public Task<Book> Get(int id)
         {
+
             return null;
+        }
+
+        [HttpPost,Route("/addBook")]
+        public async Task<UnifiedResponse> AddBook([FromBody]AddBookModel model)
+        {
+            return await _mediator.Send(model);
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using server.CQRS.Queries;
 using Microsoft.OpenApi.Models;
+using server.CQRS.Commands;
 
 namespace server
 {
@@ -29,6 +30,7 @@ namespace server
             services.AddControllers();
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);   
             services.AddTransient(typeof(IBaseQuery<>),typeof(BaseQuery<>));
+            services.AddTransient(typeof(IBaseCommand),typeof(BaseCommand));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

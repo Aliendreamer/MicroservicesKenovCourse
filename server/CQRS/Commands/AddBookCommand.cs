@@ -6,32 +6,36 @@ using System.Threading.Tasks;
 
 namespace server.CQRS.Commands
 {
-    public class EditBookCommand:IRequest<UnifiedResponse>
-    {
-        public string Title { get; set; }
-        public string Author { get; set; }
-    }
-    public class AddBookCommand:IRequestHandler<EditBookCommand,UnifiedResponse>
+  public class AddBookModel:IRequest<UnifiedResponse>
+   {
+      public string Title { get; set; }
+      public int Isbn { get; set; }
+      public string Url { get; set; }
+      public string Author {get; set;}
+      public DateTime PublishedDate { get; set; }
+   }
+    public class AddBookCommandHandler:IRequestHandler<AddBookModel,UnifiedResponse>
     {
 
-                public async Task<UnifiedResponse> Handle(EditBookCommand request, CancellationToken cancellationToken)
-                {
-                    
+        public AddBookCommandHandler(IBaseCommand baseCommand)
+        {
+             BaseCommand = baseCommand;
+        }
 
-                    Book book = null;
-                    if (book == null)
-                    {
-                        throw new Exception("Could not find book");
-                    }
-                    book.Title = request.Title ?? book.Title;
-                    book.Author = null;
-                    var success = true;
-                    if (success)
-                    {
-                        return  new UnifiedResponse{Success=true};
-                    }
-                    return  new UnifiedResponse{Success=false};
-                }
+      public IBaseCommand BaseCommand { get; }
+
+      public async Task<UnifiedResponse> Handle(AddBookModel request, CancellationToken cancellationToken)
+      {
+          string sql  = "INSERT INTO books (title,isbn,url,published_Date) Values (@Title,@Isbn,@Url,@PublishedDate);";
+       
+          var result = await this.BaseCommand.Create(sql,request);
+          var success = result == 1;
+          if (success)
+          {
+              return  new UnifiedResponse{Success=true};
+          }
+          return  new UnifiedResponse{Success=false};
+      }
             
     }
 }
