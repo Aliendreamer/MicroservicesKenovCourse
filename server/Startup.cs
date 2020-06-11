@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using server.CQRS.Queries;
 using Microsoft.OpenApi.Models;
-using Serilog;
 
 namespace server
 {
