@@ -13,3 +13,12 @@
 06/10/2020 21:02:13 Application starting up
 06/10/2020 21:02:51 Application starting up
 06/10/2020 21:03:15 Application starting up
+06/10/2020 21:04:59 Application starting up
+06/10/2020 21:05:11 Application failed with "Unable to resolve service for type 'Serilog.Extensions.Hosting.DiagnosticContext' while attempting to activate 'Serilog.AspNetCore.RequestLoggingMiddleware'."
+06/10/2020 21:07:23 Application starting up
+06/10/2020 21:08:54 Application starting up
+06/10/2020 21:08:54 Application failed with "Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: MediatR.IRequestHandler`2[server.CQRS.Queries.BookListQuery,System.Collections.Generic.IEnumerable`1[server.Models.Book]] Lifetime: Transient ImplementationType: server.CQRS.Queries.BookList': Unable to resolve service for type 'server.CQRS.Queries.IBaseQuery`1[server.Models.Book]' while attempting to activate 'server.CQRS.Queries.BookList'.)"
+06/11/2020 06:37:33 Application starting up
+06/11/2020 06:56:03 Application starting up
+06/11/2020 06:56:32 Application starting up
+06/11/2020 06:57:34 Application starting up

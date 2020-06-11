@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using server.CQRS.Queries;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -27,7 +26,7 @@ namespace server
              {
                     c.SwaggerDoc("v1", new OpenApiInfo { Title = "course api", Version = "v1" });
              });
-            
+            services.AddLogging();
             services.AddControllers();
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);   
             services.AddTransient(typeof(IBaseQuery<>),typeof(BaseQuery<>));
@@ -41,7 +40,7 @@ namespace server
             }
 
             app.UseHttpsRedirection();
-            app.UseSerilogRequestLogging();
+            app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
             app.UseSwagger();
