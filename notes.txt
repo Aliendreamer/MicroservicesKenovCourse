@@ -1,7 +1,5 @@
 -- list of dependencies I may need and not to forget secrets will be in the appsettings which is in git ignore
 .net api on 5000
-postgres on 5001
- docker run --name postgresDb -e POSTGRES_USER=sa -e POSTGRES_PASSWORD=passw0rd -p 5001:5432 -d postgres
 
 /seq container start command should make docker compose at one point
 docker run \
@@ -14,7 +12,10 @@ docker run \
   datalust/seq:latest
 
 
-
+// snippet to get ip of the user silently
+fetch("https://api.ipify.org/?format=json")
+.then(res=>res.json())
+.then(console.log); - i will do it axios but still i need the adress for next
 // to open file in the pdf js just a snippet for later
 public ActionResult GetPdf(string fileName)
 {
@@ -23,3 +24,7 @@ public ActionResult GetPdf(string fileName)
 
     return File(filePath, "application/pdf");
 }
+// managing mutations
+dotnet ef database update
+dotnet ef migrations  add xxx
+dotnet ef remove
