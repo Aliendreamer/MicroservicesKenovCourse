@@ -3,9 +3,9 @@
    "settings": {
      "documentationRules": {
        "copyrightText": "Licensed under the MIT license. See LICENSE file in the samples root for full license information.",
-       "companyName": "Microsoft",
-       "xmlHeader": false,
-       "documentExposedElements": false
+       "documentInternalElements": false,
+       "documentExposedElements": false,
+       "documentInterfaces": false
      },
      "layoutRules": {
        "newlineAtEndOfFile": "require"

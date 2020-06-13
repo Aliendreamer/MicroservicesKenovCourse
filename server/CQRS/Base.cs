@@ -1,22 +1,23 @@
-
-
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
-namespace server.CQRS
+namespace Server.CQRS
 {
    public interface IBase
    {
-        IDbConnection Connection {get;}
+        IDbConnection Connection { get; }
    }
-   public class Base:IBase
+
+   public class Base : IBase
    {
       private IConfiguration config;
-      public Base(IConfiguration configuration )
+
+      public Base(IConfiguration configuration)
       {
-         config=configuration;
+         this.config = configuration;
       }
-     public IDbConnection Connection => new SqlConnection(config.GetConnectionString("ConnectionString"));
+
+      public IDbConnection Connection => new SqlConnection(this.config.GetConnectionString("ConnectionString"));
    }
 }
