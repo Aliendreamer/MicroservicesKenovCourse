@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
-using Npgsql;
+using System.Data.SqlClient;
 
 namespace server.CQRS.Queries
 {
@@ -12,10 +12,11 @@ namespace server.CQRS.Queries
         Task<IEnumerable<T>> GetList(string query);
         Task<T> Get(string query);
     }
-    public class BaseQuery<T> : IBaseQuery<T> where T:class
+    public class BaseQuery<T> :Base, IBaseQuery<T> where T:class
     {
           public IConfiguration configuration { get; set; }
          public BaseQuery(IConfiguration configuration)
+                :base(configuration)
          {
             this.configuration = configuration;
          }
@@ -23,15 +24,13 @@ namespace server.CQRS.Queries
        
       public async Task<T> Get(string query)
       {
-          using var connection = new NpgsqlConnection(configuration.GetConnectionString("PostgresString"));
-          await connection.OpenAsync();
+          using var connection = this.Connection;
           return  await connection.QuerySingleAsync<T>(query);
       }
 
       public async Task<IEnumerable<T>> GetList(string query)
       {
-          using var connection = new NpgsqlConnection("");
-          await connection.OpenAsync();
+          using var connection = this.Connection;
           return  await connection.QueryAsync<T>(query);
       }
    }

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using server.CQRS.Queries;
 using Microsoft.OpenApi.Models;
 using server.CQRS.Commands;
+using server.CQRS;
 
 namespace server
 {
@@ -28,7 +29,8 @@ namespace server
              });
             services.AddLogging();
             services.AddControllers();
-            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);   
+            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
+            services.AddTransient<IBase,Base>();
             services.AddTransient(typeof(IBaseQuery<>),typeof(BaseQuery<>));
             services.AddTransient(typeof(IBaseCommand),typeof(BaseCommand));
         }

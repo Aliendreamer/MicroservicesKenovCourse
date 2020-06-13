@@ -1,9 +1,11 @@
+using System.Diagnostics;
+using System.Globalization;
+using System.Runtime.CompilerServices;
 using System;
 using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Npgsql;
 
 namespace server.CQRS.Commands
 {
@@ -14,14 +16,15 @@ namespace server.CQRS.Commands
         Task<int> Create(string query,object obj);
 
     }
-    public class BaseCommand : IBaseCommand 
+    public class BaseCommand :Base, IBaseCommand 
     {
       public ILogger<BaseCommand> Logger { get; }
       public IConfiguration Configuration { get; set; }
          public BaseCommand(ILogger<BaseCommand> logger,IConfiguration configuration)
+         :base(configuration)
          {
-         Logger = logger;
-         this.Configuration = configuration;
+            Logger = logger;
+            this.Configuration = configuration;
          }
 
       public Task<int> Delete(string query)
@@ -38,8 +41,7 @@ namespace server.CQRS.Commands
       {
          try
          {
-            using var connection = new NpgsqlConnection(Configuration.GetConnectionString("PostgresString"));
-            await connection.OpenAsync();
+            using var connection= this.Connection;
             return  await connection.ExecuteAsync(query,obj);
          }catch(Exception ex){
             Logger.LogError(ex,$"Creating entity in database failed with {ex.Message} and  with trace {ex.StackTrace}");

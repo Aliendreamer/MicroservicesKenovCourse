@@ -22,7 +22,7 @@ namespace server.CQRS.Commands
              BaseCommand = baseCommand;
         }
 
-      public IBaseCommand BaseCommand { get; }
+      private IBaseCommand BaseCommand { get; }
 
       public async Task<UnifiedResponse> Handle(AddBookModel request, CancellationToken cancellationToken)
       {
