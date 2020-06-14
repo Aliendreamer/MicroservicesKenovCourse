@@ -6,6 +6,7 @@
    using Microsoft.AspNetCore.Mvc;
    using Microsoft.Extensions.Logging;
    using Server.CQRS.Queries;
+   using Server.CQRS.RequestsModels;
    using Server.Models;
 
    [ApiController]
