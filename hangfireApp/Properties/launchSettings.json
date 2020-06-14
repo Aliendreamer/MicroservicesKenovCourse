@@ -1,10 +1,10 @@
 ﻿{
   "profiles": {
-    "server": {
+    "hangfireApp": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "/api",
-      "applicationUrl": "https://localhost:5000",
+      "launchUrl": "/",
+      "applicationUrl": "http://localhost:5001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

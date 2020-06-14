@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.CQRS.Commands
 {
-  public class AddBookModel: IRequest<UnifiedResponse>
+  public class AddBookModel : IRequest<UnifiedResponse>
   {
       public string Title { get; set; }
 
