@@ -33,11 +33,11 @@ namespace Server
 
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
 
-            services.AddTransient<IBase,Base>();
+            services.AddTransient<IBase, Base>();
 
-            services.AddTransient(typeof(IBaseQuery<>),typeof(BaseQuery<>));
+            services.AddTransient(typeof(IBaseQuery<>), typeof(BaseQuery<>));
 
-            services.AddTransient(typeof(IBaseCommand),typeof(BaseCommand));
+            services.AddTransient(typeof(IBaseCommand), typeof(BaseCommand));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

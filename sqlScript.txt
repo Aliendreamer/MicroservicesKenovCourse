@@ -1,0 +1,71 @@
+Go
+CREATE DATABASE booksAppDb
+GO
+GO
+USE booksAppDb
+GO
+CREATE TABLE Users (
+  id int NOT NULL IDENTITY PRIMARY KEY,
+  userId int NOT NULL,
+  enabled bit NOT NULL DEFAULT 0,
+  last_login DATETIME  DEFAULT CURRENT_TIMESTAMP
+);
+GO
+GO
+CREATE TABLE Authors (
+  id int NOT NULL IDENTITY PRIMARY KEY,
+  name VARCHAR(50) NOT NULL,
+);
+GO
+GO
+CREATE TABLE Books (
+  id int NOT NULL IDENTITY PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  published_date DATETIME  DEFAULT CURRENT_TIMESTAMP,
+  url VARCHAR(100) NOT NULL,
+  isbn int UNIQUE
+);
+
+GO
+CREATE TABLE Reviews (
+  id int NOT NULL IDENTITY PRIMARY KEY,
+  book_id int NOT NULL,
+  user_id int NOT NULL,
+  review_content VARCHAR(255),
+  rating int,
+  published_date DATETIME DEFAULT  CURRENT_TIMESTAMP,
+  FOREIGN KEY (book_id) REFERENCES Books(id) ON DELETE CASCADE,
+  FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
+);
+GO
+GO
+CREATE TABLE Authors_Books (
+  author_id int NOT NULL,
+  book_id int NOT NULL,
+  PRIMARY KEY (author_id, book_id),
+  FOREIGN KEY (author_id) REFERENCES Authors(id) ON UPDATE CASCADE,
+  FOREIGN KEY (book_id) REFERENCES Books(id) ON UPDATE CASCADE
+);
+GO
+GO
+CREATE TABLE Users_Books (
+  user_id int NOT NULL,
+  book_id int NOT NULL,
+  PRIMARY KEY (user_id, book_id),
+  FOREIGN KEY (user_id) REFERENCES Users(id) ON UPDATE CASCADE,
+  FOREIGN KEY (book_id) REFERENCES Books(id) ON UPDATE CASCADE
+);
+GO
+GO
+-- Create a new database called 'DatabaseName'
+-- Connect to the 'master' database to run this snippet
+USE master
+GO
+-- Create the new database if it does not exist already
+IF NOT EXISTS (
+    SELECT [name]
+        FROM sys.databases
+        WHERE [name] = N'DatabaseName'
+)
+CREATE DATABASE Hangfire
+GO

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using HangfireActions;
+using MediatR;
 using Server.Models;
 using System;
 using System.Threading;
@@ -36,6 +37,7 @@ namespace Server.CQRS.Commands
           var success = result == 1;
           if (success)
           {
+              RegisterController.RegisterJob<UserHandler>((UserHandler)=>UserHandler.RegisterNewUser());
               return new UnifiedResponse { Success = true };
           }
 
