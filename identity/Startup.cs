@@ -2,18 +2,18 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using WebApi.Helpers;
-using WebApi.Services;
+using IdentityService.Helpers;
+using IdentityService.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using WebApi.Entities;
+using IdentityService.Entities;
 using System;
 using Microsoft.OpenApi.Models;
 using System.Linq;
 
-namespace WebApi
+namespace IdentityService
 {
     public class Startup
     {

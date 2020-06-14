@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using WebApi.Entities;
+using IdentityService.Entities;
 
-namespace WebApi.Helpers
+namespace IdentityService.Helpers
 {
     public class DataContext : DbContext
     {

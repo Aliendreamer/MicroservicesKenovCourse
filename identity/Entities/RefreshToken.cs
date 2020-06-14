@@ -1,7 +1,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 
-namespace WebApi.Entities
+namespace IdentityService.Entities
 {
     [Owned]
     public class RefreshToken

@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using WebApi.Services;
-using WebApi.Models;
+using IdentityService.Services;
+using IdentityService.Models;
 using Microsoft.AspNetCore.Http;
 using System;
 
-namespace WebApi.Controllers
+namespace IdentityService.Controllers
 {
     [Authorize]
     [ApiController]

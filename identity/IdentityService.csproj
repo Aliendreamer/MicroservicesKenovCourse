@@ -11,5 +11,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0-preview.5.20278.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0-preview.5.20278.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+    <ProjectRefence Include="..\hangfireActions\hangfireActions.csproj" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WebApi.Migrations
+namespace IdentityService.Migrations
 {
     public partial class initialMigration : Migration
     {

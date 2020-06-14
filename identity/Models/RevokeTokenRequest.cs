@@ -1,4 +1,4 @@
-namespace WebApi.Models
+namespace IdentityService.Models
 {
     public class RevokeTokenRequest
     {

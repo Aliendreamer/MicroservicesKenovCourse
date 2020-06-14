@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
-namespace WebApi.Entities
+namespace IdentityService.Entities
 {
     public class User
     {

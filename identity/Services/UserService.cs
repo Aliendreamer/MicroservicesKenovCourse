@@ -7,11 +7,11 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using WebApi.Models;
-using WebApi.Entities;
-using WebApi.Helpers;
+using IdentityService.Models;
+using IdentityService.Entities;
+using IdentityService.Helpers;
 
-namespace WebApi.Services
+namespace IdentityService.Services
 {
     public interface IUserService
     {

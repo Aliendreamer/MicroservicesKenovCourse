@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebApi.Helpers;
+using IdentityService.Helpers;
 
-namespace WebApi.Migrations
+namespace IdentityService.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20200613133651_initialMigration")]
@@ -21,7 +21,7 @@ namespace WebApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WebApi.Entities.User", b =>
+            modelBuilder.Entity("IdentityService.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,9 +45,9 @@ namespace WebApi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WebApi.Entities.User", b =>
+            modelBuilder.Entity("IdentityService.Entities.User", b =>
                 {
-                    b.OwnsMany("WebApi.Entities.RefreshToken", "RefreshTokens", b1 =>
+                    b.OwnsMany("IdentityService.Entities.RefreshToken", "RefreshTokens", b1 =>
                         {
                             b1.Property<int>("UserId")
                                 .HasColumnType("int");
