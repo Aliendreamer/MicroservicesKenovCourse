@@ -1,29 +1,29 @@
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Threading.Tasks;
-using Dapper;
-using Microsoft.Extensions.Logging;
-
 namespace Server.CQRS.Commands
 {
-    public interface IBaseCommand 
-    {
-        Task<int> Delete(string query);
+   using System;
+   using System.Threading.Tasks;
+   using Dapper;
+   using Microsoft.Extensions.Configuration;
+   using Microsoft.Extensions.Logging;
 
-        Task<int> Update(string query);
+   public interface IBaseCommand
+   {
+      Task<int> Delete(string query);
 
-        Task<int> Create(string query, object obj);
+      Task<int> Update(string query);
 
-    }
+      Task<int> Create(string query, object obj);
 
-    public class BaseCommand : Base, IBaseCommand
-    {
-      public BaseCommand (ILogger<BaseCommand> logger, IConfiguration configuration)
+   }
+
+   public class BaseCommand : Base, IBaseCommand
+   {
+      public BaseCommand(ILogger<BaseCommand> logger, IConfiguration configuration)
          : base(configuration)
-         {
-            this.Logger = logger;
-            this.Configuration = configuration;
-         }
+      {
+         this.Logger = logger;
+         this.Configuration = configuration;
+      }
 
       public ILogger<BaseCommand> Logger { get; }
 
