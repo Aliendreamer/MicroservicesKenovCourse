@@ -19,6 +19,9 @@ namespace hangfireApp
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
+            //TODO: test if need this di I think not and also should make hangfire string 
+            //to come from the library not  for every project it should be a problem to change on many places a string 
+            //pointless for sure
             services.AddTransient<IUserHandler, UserHandler>();
             services.AddHangfire(configuration => configuration
                         .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
