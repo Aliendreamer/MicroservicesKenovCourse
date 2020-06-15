@@ -13,13 +13,12 @@ namespace Server.CQRS.Commands
       Task<int> Update(string query);
 
       Task<int> Create(string query, object obj);
-
    }
 
    public class BaseCommand : Base, IBaseCommand
    {
       public BaseCommand(ILogger<BaseCommand> logger, IConfiguration configuration)
-         : base(configuration)
+      : base(configuration)
       {
          this.Logger = logger;
          this.Configuration = configuration;
