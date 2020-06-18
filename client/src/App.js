@@ -1,17 +1,25 @@
 import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import PrivateRoute from "./helpers/privateRoute";
+import LoginPage from "./components/PageComponents/LoginPage";
+import AccountPage from "./components/PageComponents/AccountPage";
+import BasePage from "./components/baseComponents/basePage";
 
 function App() {
 	return (
-		<div className="App">
-			<header className="App-header">
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a>
-					Learn React
-				</a>
-			</header>
-		</div>
+		<BasePage>
+			<BrowserRouter>
+				<Switch>
+					<Route path="/" exact>
+						<AccountPage />
+					</Route>
+					<Route path="/login">
+						<LoginPage />
+					</Route>
+					<PrivateRoute path="/protected" component={null} />
+				</Switch>
+			</BrowserRouter>
+		</BasePage>
 	);
 }
 

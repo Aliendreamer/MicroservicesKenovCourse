@@ -107,7 +107,7 @@
 			2,
 			"tab",
 			{
-				"indentLogicalExpressions": false
+				"indentLogicalExpressions": true
 			}
 		],
 		"react/jsx-indent-props": "off",
