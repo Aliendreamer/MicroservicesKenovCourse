@@ -1,8 +1,9 @@
 import React from "react";
+import FormComponent from "../baseComponents/FormComponent";
 
 const LoginPage = () => {
 	return (
-		<p>I will be login page</p>
+		<FormComponent isLogin={true} />
 	);
 };
 

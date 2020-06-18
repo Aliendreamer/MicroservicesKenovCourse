@@ -1,8 +1,8 @@
 import React from "react";
-
+import FormComponent from "../baseComponents/FormComponent";
 const RegisterPage = () => {
 	return (
-		<p>register page</p>
+		<FormComponent isLogin={false} />
 	);
 };
 
