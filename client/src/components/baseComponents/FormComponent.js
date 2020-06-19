@@ -3,10 +3,11 @@ import React from "react";
 import { useForm, Controller, ErrorMessage } from "react-hook-form";
 import { authInstanceActions } from "../../helpers/axiosFactory";
 import { Form, FormGroup, Label, Input, Button, Jumbotron, Container } from "reactstrap";
+import { useHistory } from "react-router-dom";
 
 const FormComponent = ({ isLogin }) => {
 	const { errors, control, handleSubmit } = useForm();
-
+	const history = useHistory();
 	const onSubmit = data => {
 		authInstanceActions("POST", "users/register", data);
 	};
@@ -68,6 +69,7 @@ const FormComponent = ({ isLogin }) => {
 					</FormGroup>
 					<Button type="submit">{isLogin ? "Login" : "Register"}</Button>
 				</Form>
+				{!isLogin && <Button color="link" onClick={() => history.push("/login")}>Already have account?</Button>}
 			</Container>
 		</Jumbotron>
 	);
