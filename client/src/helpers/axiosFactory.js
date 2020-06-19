@@ -10,7 +10,6 @@ const apiInstance = axios.create({
 	timeout: 5000
 });
 export const authInstanceActions = async (method, url, data) => {
-	debugger;
 	try {
 		let response;
 		switch (method) {
