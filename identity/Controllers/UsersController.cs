@@ -1,109 +1,103 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using IdentityService.Services;
-using IdentityService.Models;
-using Microsoft.AspNetCore.Http;
-using System;
-
-namespace IdentityService.Controllers
+﻿namespace IdentityService.Controllers
 {
-    [Authorize]
-    [ApiController]
-    [Route("[controller]")]
-    public class UsersController : ControllerBase
-    {
-        private IUserService _userService;
+   using System;
+   using System.Threading.Tasks;
+   using IdentityService.Models;
+   using IdentityService.Services;
+   using Microsoft.AspNetCore.Authorization;
+   using Microsoft.AspNetCore.Http;
+   using Microsoft.AspNetCore.Mvc;
 
-        public UsersController(IUserService userService)
-        {
-            _userService = userService;
-        }
+   [Authorize]
+   [ApiController]
+   [Route("[controller]")]
+   public class UsersController : ControllerBase
+   {
+      private readonly IUserService userService;
 
-        [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody] AuthenticateRequest model)
-        {
-            var response = _userService.Authenticate(model, ipAddress());
+      public UsersController(IUserService userService)
+      {
+         this.userService = userService;
+      }
 
-            if (response == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+      [AllowAnonymous]
+      [HttpPost("authenticate")]
+      public IActionResult Authenticate([FromBody] AuthenticateRequest model)
+      {
+         var response = this.userService.Authenticate(model, this.IpAddress());
 
-            setTokenCookie(response.RefreshToken);
+         if (response == null)
+            return this.BadRequest(new { message = "Username or password is incorrect" });
 
-            return Ok(response);
-        }
+         this.SetTokenCookie(response.RefreshToken);
 
-        [AllowAnonymous]
-        [HttpPost("refresh-token")]
-        public IActionResult RefreshToken()
-        {
-            var refreshToken = Request.Cookies["refreshToken"];
-            var response = _userService.RefreshToken(refreshToken, ipAddress());
+         return this.Ok(response);
+      }
 
-            if (response == null)
-                return Unauthorized(new { message = "Invalid token" });
+      [AllowAnonymous]
+      [HttpPost("refresh-token")]
+      public IActionResult RefreshToken()
+      {
+         var refreshToken = this.Request.Cookies["refreshToken"];
+         var response = this.userService.RefreshToken(refreshToken, this.IpAddress());
 
-            setTokenCookie(response.RefreshToken);
+         if (response == null)
+            return this.Unauthorized(new { message = "Invalid token" });
 
-            return Ok(response);
-        }
+         this.SetTokenCookie(response.RefreshToken);
 
-        [HttpPost("revoke-token")]
-        public IActionResult RevokeToken([FromBody] RevokeTokenRequest model)
-        {
-            // accept token from request body or cookie
-            var token = model.Token ?? Request.Cookies["refreshToken"];
+         return this.Ok(response);
+      }
 
-            if (string.IsNullOrEmpty(token))
-                return BadRequest(new { message = "Token is required" });
+      [HttpPost("revoke-token")]
+      public IActionResult RevokeToken([FromBody] RevokeTokenRequest model)
+      {
+         // accept token from request body or cookie
+         var token = model.Token ?? this.Request.Cookies["refreshToken"];
 
-            var response = _userService.RevokeToken(token, ipAddress());
+         if (string.IsNullOrEmpty(token))
+            return this.BadRequest(new { message = "Token is required" });
 
-            if (!response)
-                return NotFound(new { message = "Token not found" });
+         var response = this.userService.RevokeToken(token, this.IpAddress());
 
-            return Ok(new { message = "Token revoked" });
-        }
+         if (!response)
+            return this.NotFound(new { message = "Token not found" });
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-            return Ok(users);
-        }
+         return this.Ok(new { message = "Token revoked" });
+      }
 
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var user = _userService.GetById(id);
-            return Ok(user);
-        }
+      [HttpGet("{id}")]
+      public IActionResult GetById(int id)
+      {
+         var user = this.userService.GetById(id);
+         return this.Ok(user);
+      }
 
-        [HttpGet("{id}/refresh-tokens")]
-        public IActionResult GetRefreshTokens(int id)
-        {
-            var user = _userService.GetById(id);
-            return Ok(user.RefreshTokens);
-        }
+      [AllowAnonymous]
+      [HttpPost("register")]
+      public async Task<IActionResult> RegisterUser([FromBody] UserRegisterRequest request)
+      {
+         var response = await this.userService.CreateUser(request, this.IpAddress());
+         return this.Ok(response);
+      }
 
-        // helper methods
+      // helper methods
+      private void SetTokenCookie(string token)
+      {
+         var cookieOptions = new CookieOptions
+         {
+            HttpOnly = true,
+            Expires = DateTime.UtcNow.AddDays(7),
+         };
+         this.Response.Cookies.Append("refreshToken", token, cookieOptions);
+      }
 
-        private void setTokenCookie(string token)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(7)
-            };
-            Response.Cookies.Append("refreshToken", token, cookieOptions);
-        }
-
-        private string ipAddress()
-        {
-            if (Request.Headers.ContainsKey("X-Forwarded-For"))
-                return Request.Headers["X-Forwarded-For"];
-            else
-                return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
-        }
-    }
+      private string IpAddress()
+      {
+         if (this.Request.Headers.ContainsKey("X-Forwarded-For"))
+            return this.Request.Headers["X-Forwarded-For"];
+         else
+            return this.HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+      }
+   }
 }

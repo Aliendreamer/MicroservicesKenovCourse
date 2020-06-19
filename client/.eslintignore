@@ -1,0 +1,10 @@
+channellogorequirement/**
+cypress/**
+demo/**
+demoimages/**
+jest/**
+keycloak/**
+muppeteer/**
+node_modules/**
+uploads/**
+vendor/**

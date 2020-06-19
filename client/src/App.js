@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import PrivateRoute from "./helpers/privateRoute";
+import LoginPage from "./components/PageComponents/LoginPage";
+import AccountPage from "./components/PageComponents/AccountPage";
+import BasePage from "./components/baseComponents/BasePage";
+import RegisterPage from "./components/PageComponents/RegisterPage";
+import ErrorBoundary from "./components/baseComponents/ErrorBoundary";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<BrowserRouter>
+			<ErrorBoundary>
+				<BasePage>
+					<Switch>
+						<Route path="/" exact>
+							<AccountPage />
+						</Route>
+						<Route path="/login">
+							<LoginPage />
+						</Route>
+						<Route path="/register">
+							<RegisterPage />
+						</Route>
+						<PrivateRoute path="/protected" component={null} />
+					</Switch>
+				</BasePage>
+			</ErrorBoundary>
+		</BrowserRouter>
+	);
 }
 
 export default App;
