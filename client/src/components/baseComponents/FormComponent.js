@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-closing-tag-location */
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller, ErrorMessage } from "react-hook-form";
 import { authInstanceActions } from "../../helpers/axiosFactory";
-import { Form, FormGroup, Label, Input, FormFeedback, Button, Jumbotron, Container } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Jumbotron, Container } from "reactstrap";
 
 const FormComponent = ({ isLogin }) => {
-	const { register, handleSubmit, errors } = useForm();
+	const { errors, control, handleSubmit } = useForm();
+
 	const onSubmit = data => {
-		debugger;
 		authInstanceActions("POST", "users/register", data);
 	};
 
@@ -17,27 +17,54 @@ const FormComponent = ({ isLogin }) => {
 				<Form onSubmit={handleSubmit(onSubmit)}>
 					<FormGroup>
 						<Label for="FirstName">FirstName</Label>
-						<Input name="FirstName" placeholder="FirstName" id="FirstName" ref={register({ required: true })} />
-						{errors.FirstName && <FormFeedback>FirstName is required</FormFeedback>}
+						<Controller
+							as={Input}
+							name="FirstName" placeholder="FirstName"
+							id="FirstName"
+							control={control}
+							rules={{ required: "This is required" }}
+						/>
+						<ErrorMessage errors={errors} name="FirstName" as="p" />
 					</FormGroup>
 					{!isLogin
 						? <>
 							<FormGroup>
 								<Label for="LastName">LastName</Label>
-								<Input name="LastName" placeholder="LastName" id="LastName" ref={register({ required: true })} />
-								{errors.LastName && <FormFeedback>LastName is required</FormFeedback>}
+								<Controller
+									as={Input}
+									name="LastName"
+									placeholder="LastName"
+									id="LastName"
+									control={control}
+									rules={{ required: "This is required" }}
+								/>
+								<ErrorMessage errors={errors} name="LastName" as="p" />
 							</FormGroup>
 							<FormGroup>
 								<Label for="UserName">LastName</Label>
-								<Input name="UserName" placeholder="UserName" id="LastName" ref={register({ required: true })} />
-								{errors.UserName && <FormFeedback>UserName is required</FormFeedback>}
+								<Controller
+									as={Input}
+									name="UserName"
+									placeholder="UserName"
+									id="LastName"
+									control={control}
+									rules={{ required: "This is required" }}
+								/>
+								<ErrorMessage errors={errors} name="UserName" as="p" />
 							</FormGroup>
 						</>
 						: null}
 					<FormGroup>
 						<Label for="Password">Password</Label>
-						<Input name="Password" placeholder="Password" id="Password" ref={register({ required: true })} />
-						{errors.UserName && <FormFeedback>password is required</FormFeedback>}
+						<Controller
+							as={Input}
+							name="Password"
+							placeholder="Password"
+							id="Password"
+							control={control}
+							rules={{ required: "This is required" }}
+						/>
+						<ErrorMessage errors={errors} name="UserName" as="p" />
 					</FormGroup>
 					<Button type="submit">{isLogin ? "Login" : "Register"}</Button>
 				</Form>

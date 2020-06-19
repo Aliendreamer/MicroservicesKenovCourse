@@ -37,5 +37,5 @@ const decrement = dispatch => count => {
 
 export const { Context, Provider } = createDataContext(authReducer,
 	{ increment, decrement },
-	{ isLogged: true, isAdmin: false }
+	{ isLogged: false, isAdmin: false }
 );
