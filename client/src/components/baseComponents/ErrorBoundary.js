@@ -4,18 +4,24 @@ import React from "react";
 class ErrorBoundary extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { error: null, errorInfo: null };
+		this.state = { error: null, errorInfo: null, hasError: false };
+	}
+
+	static getDerivedStateFromError(error) {
+		// Update state so the next render will show the fallback UI.
+		return { hasError: true };
 	}
 
 	componentDidCatch(error, errorInfo) {
 		this.setState({
 			error: error,
-			errorInfo: errorInfo
+			errorInfo: errorInfo,
+			hasError: true
 		});
 	}
 
 	render() {
-		if (this.state.errorInfo) {
+		if (this.state.hasError) {
 			return (
 				<div>
 					<h2>Something went wrong</h2>

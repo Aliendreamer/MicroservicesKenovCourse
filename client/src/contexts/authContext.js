@@ -5,37 +5,26 @@ const authReducer = (state, action) => {
 		case "login":
 			return {
 				...state,
-				count: action.payload
+				isLogged: action.payload
 			};
 		case "logOut":
 			return {
 				...state,
-				count: action.payload
-			};
-		case "register":
-			return {
-				...state,
-				count: 0
-			};
-		case "deleteProfile":
-			return {
-				...state,
-				count: 0
+				isLogged: false
 			};
 		default:
 			return state;
 	}
 };
 
-const increment = dispatch => count => {
-	dispatch({ type: "increment", payload: count });
+const loginUser = dispatch => isLogged => {
+	dispatch({ type: "login", payload: isLogged });
 };
 
-const decrement = dispatch => count => {
-	dispatch({ type: "decrement", payload: count });
+const logOutUser = dispatch => isLogged => {
+	dispatch({ type: "logOut", payload: isLogged });
 };
-
 export const { Context, Provider } = createDataContext(authReducer,
-	{ increment, decrement },
+	{ loginUser, logOutUser },
 	{ isLogged: false, isAdmin: false }
 );

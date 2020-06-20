@@ -10,6 +10,7 @@ namespace IdentityService.Services
    using IdentityService.Entities;
    using IdentityService.Helpers;
    using IdentityService.Models;
+   using Microsoft.EntityFrameworkCore;
    using Microsoft.Extensions.Options;
    using Microsoft.IdentityModel.Tokens;
 
@@ -42,12 +43,14 @@ namespace IdentityService.Services
 
       public async Task<AuthenticateResponse> CreateUser(UserRegisterRequest request, string ip)
       {
+         var adminRole = await this.context.Roles.FirstOrDefaultAsync(x => x.Name == "Admin");
          var user = new User
          {
             Username = request.Username,
             Password = request.Password,
             FirstName = request.FirstName,
             LastName = request.LastName,
+            UserRole = adminRole,
          };
          await this.context.Users.AddAsync(user);
          await this.context.SaveChangesAsync();
@@ -136,8 +139,9 @@ namespace IdentityService.Services
             Subject = new ClaimsIdentity(new Claim[]
             {
                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+               new Claim(ClaimTypes.Role, user.UserRole.Name),
             }),
-            Expires = DateTime.UtcNow.AddMinutes(15),
+            Expires = DateTime.UtcNow.AddDays(30),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
          };
          var token = tokenHandler.CreateToken(tokenDescriptor);

@@ -33,10 +33,10 @@ export const useApiInstance = async (method, url, data) => {
 		let response;
 		switch (method) {
 			case "GET":
-				response = await apiInstance.get(url, data).catch(err => { throw Error(err.Message); });
+				response = await apiInstance.get(url, data);
 				break;
 			case "Post":
-				response = await apiInstance.get(url, data).catch(err => { throw Error(err.Message); });
+				response = await apiInstance.get(url, data);
 				break;
 			default:
 				break;

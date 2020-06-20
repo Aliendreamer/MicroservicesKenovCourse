@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./helpers/privateRoute";
-import LoginPage from "./components/PageComponents/LoginPage";
-import AccountPage from "./components/PageComponents/AccountPage";
+import LoginPage from "./components/pageComponents/LoginPage";
+import AccountPage from "./components/pageComponents/AccountPage";
 import BasePage from "./components/baseComponents/BasePage";
-import RegisterPage from "./components/PageComponents/RegisterPage";
+import RegisterPage from "./components/pageComponents/RegisterPage";
 import ErrorBoundary from "./components/baseComponents/ErrorBoundary";
 
 function App() {

@@ -1,17 +1,31 @@
 /* eslint-disable react/jsx-closing-tag-location */
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm, Controller, ErrorMessage } from "react-hook-form";
 import { authInstanceActions } from "../../helpers/axiosFactory";
-import { Form, FormGroup, Label, Input, Button, Jumbotron, Container } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Jumbotron, FormText, Container } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import { Context as AuthContext } from "../../contexts/authContext";
 
 const FormComponent = ({ isLogin }) => {
 	const { errors, control, handleSubmit } = useForm();
+	const { loginUser } = useContext(AuthContext);
+	const [error, setError] = useState(null);
 	const history = useHistory();
-	const onSubmit = data => {
-		authInstanceActions("POST", "users/register", data);
+	const onSubmit = async (data) => {
+		const path = !isLogin ? "users/register" : "users/login";
+		const response = await authInstanceActions("POST", path, data);
+		if (response.data) {
+			debugger;
+			localStorage.setItem("jwtToken", response.data.jwtToken);
+			loginUser(true);
+			// Retrieve the object from storage
+			// var retrievedObject = localStorage.getItem('testObject');
+		}
+		if (response.error) {
+			setError("Pls try again or later if error persists ");
+			setTimeout(() => setError(null), 3000);
+		}
 	};
-
 	return (
 		<Jumbotron fluid>
 			<Container fluid>
@@ -42,12 +56,12 @@ const FormComponent = ({ isLogin }) => {
 								<ErrorMessage errors={errors} name="LastName" as="p" />
 							</FormGroup>
 							<FormGroup>
-								<Label for="UserName">LastName</Label>
+								<Label for="UserName">UserName</Label>
 								<Controller
 									as={Input}
 									name="UserName"
 									placeholder="UserName"
-									id="LastName"
+									id="UserName"
 									control={control}
 									rules={{ required: "This is required" }}
 								/>
@@ -69,6 +83,7 @@ const FormComponent = ({ isLogin }) => {
 					</FormGroup>
 					<Button type="submit">{isLogin ? "Login" : "Register"}</Button>
 				</Form>
+				{error && <FormText color="danger">{error}</FormText>}
 				{!isLogin && <Button color="link" onClick={() => history.push("/login")}>Already have account?</Button>}
 			</Container>
 		</Jumbotron>
