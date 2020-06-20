@@ -16,10 +16,10 @@ namespace IdentityService.Helpers
 
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
-         modelBuilder.Entity<User>()
-             .HasOne(a => a.UserRole)
-             .WithOne(b => b.User)
-             .HasForeignKey<User>(u => u.RoleId);
+             modelBuilder.Entity<Role>()
+            .HasOne(b => b.User)
+            .WithOne(i => i.Role)
+            .HasForeignKey<User>(b => b.UserRole);
       }
    }
 }

@@ -12,13 +12,13 @@ const FormComponent = ({ isLogin }) => {
 	const [error, setError] = useState(null);
 	const history = useHistory();
 	const onSubmit = async (data) => {
-		const path = !isLogin ? "users/register" : "users/login";
+		const path = !isLogin ? "users/register" : "users/authenticate";
+		debugger;
 		const response = await authInstanceActions("POST", path, data);
 		if (response.data) {
 			debugger;
 			localStorage.setItem("jwtToken", response.data.jwtToken);
 			loginUser(true);
-			// Retrieve the object from storage
 			// var retrievedObject = localStorage.getItem('testObject');
 		}
 		if (response.error) {

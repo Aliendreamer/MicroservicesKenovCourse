@@ -17,6 +17,7 @@ export const authInstanceActions = async (method, url, data) => {
 				response = await authInstance.get(url, data);
 				break;
 			case "POST":
+				debugger;
 				response = await authInstance.post(url, data);
 				break;
 			default:
@@ -24,6 +25,8 @@ export const authInstanceActions = async (method, url, data) => {
 		}
 		return { data: response.data, error: null };
 	} catch (error) {
+		console.log(error);
+		debugger;
 		return { data: null, error: "RequestError" };
 	}
 };

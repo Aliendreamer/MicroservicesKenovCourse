@@ -13,9 +13,9 @@ namespace IdentityService.Entities
 
       public string Username { get; set; }
 
-      public int RoleId { get; set; }
+      public int UserRole { get; set; }
 
-      public Role UserRole { get; set; }
+      public Role Role { get; set; }
 
       [JsonIgnore]
       public string Password { get; set; }

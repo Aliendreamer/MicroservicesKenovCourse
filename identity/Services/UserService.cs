@@ -50,7 +50,7 @@ namespace IdentityService.Services
             Password = request.Password,
             FirstName = request.FirstName,
             LastName = request.LastName,
-            UserRole = adminRole,
+            Role = adminRole,
          };
          await this.context.Users.AddAsync(user);
          await this.context.SaveChangesAsync();
@@ -59,7 +59,9 @@ namespace IdentityService.Services
 
       public AuthenticateResponse Authenticate(AuthenticateRequest model, string ipAddress)
       {
-         var user = this.context.Users.SingleOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+         var user = this.context.Users.Include(x => x.Role)
+                                      .SingleOrDefault(x => x.Username.ToLower() == model.Username.ToLower()
+                                       && x.Password.ToLower() == model.Password.ToLower());
 
          // return null if user not found
          if (user == null) return null;
@@ -139,7 +141,7 @@ namespace IdentityService.Services
             Subject = new ClaimsIdentity(new Claim[]
             {
                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-               new Claim(ClaimTypes.Role, user.UserRole.Name),
+               new Claim(ClaimTypes.Role, user.Role.Name),
             }),
             Expires = DateTime.UtcNow.AddDays(30),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

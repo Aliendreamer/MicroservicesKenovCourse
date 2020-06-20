@@ -32,6 +32,9 @@ const BasePage = ({ children }) => {
 								<NavItem>
 									<NavLink href="/login">Favorites</NavLink>
 								</NavItem>
+								<NavItem>
+									<NavLink href="/logout">logout</NavLink>
+								</NavItem>
 							</>
 							: <>
 								<NavItem>
