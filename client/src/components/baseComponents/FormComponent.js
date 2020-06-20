@@ -13,12 +13,11 @@ const FormComponent = ({ isLogin }) => {
 	const history = useHistory();
 	const onSubmit = async (data) => {
 		const path = !isLogin ? "users/register" : "users/authenticate";
-		debugger;
 		const response = await authInstanceActions("POST", path, data);
 		if (response.data) {
-			debugger;
 			localStorage.setItem("jwtToken", response.data.jwtToken);
 			loginUser(true);
+			history.push("/account");
 			// var retrievedObject = localStorage.getItem('testObject');
 		}
 		if (response.error) {
@@ -31,18 +30,30 @@ const FormComponent = ({ isLogin }) => {
 			<Container fluid>
 				<Form onSubmit={handleSubmit(onSubmit)}>
 					<FormGroup>
-						<Label for="FirstName">FirstName</Label>
+						<Label for="UserName">UserName</Label>
 						<Controller
 							as={Input}
-							name="FirstName" placeholder="FirstName"
-							id="FirstName"
+							name="UserName"
+							placeholder="UserName"
+							id="UserName"
 							control={control}
 							rules={{ required: "This is required" }}
 						/>
-						<ErrorMessage errors={errors} name="FirstName" as="p" />
+						<ErrorMessage errors={errors} name="UserName" as="p" />
 					</FormGroup>
 					{!isLogin
 						? <>
+							<FormGroup>
+								<Label for="FirstName">FirstName</Label>
+								<Controller
+									as={Input}
+									name="FirstName" placeholder="FirstName"
+									id="FirstName"
+									control={control}
+									rules={{ required: "This is required" }}
+								/>
+								<ErrorMessage errors={errors} name="FirstName" as="p" />
+							</FormGroup>
 							<FormGroup>
 								<Label for="LastName">LastName</Label>
 								<Controller
@@ -54,18 +65,6 @@ const FormComponent = ({ isLogin }) => {
 									rules={{ required: "This is required" }}
 								/>
 								<ErrorMessage errors={errors} name="LastName" as="p" />
-							</FormGroup>
-							<FormGroup>
-								<Label for="UserName">UserName</Label>
-								<Controller
-									as={Input}
-									name="UserName"
-									placeholder="UserName"
-									id="UserName"
-									control={control}
-									rules={{ required: "This is required" }}
-								/>
-								<ErrorMessage errors={errors} name="UserName" as="p" />
 							</FormGroup>
 						</>
 						: null}

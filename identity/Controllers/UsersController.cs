@@ -21,7 +21,8 @@
       }
 
       [AllowAnonymous]
-      [HttpPost("authenticate")]
+      [HttpPost]
+      [Route("authenticate")]
       public IActionResult Authenticate([FromBody] AuthenticateRequest model)
       {
          var response = this.userService.Authenticate(model, this.IpAddress());

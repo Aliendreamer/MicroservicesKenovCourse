@@ -4,7 +4,7 @@ import { Context as AuthContext } from "../../contexts/authContext";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 
 const BasePage = ({ children }) => {
-	const { state: { isLogged } } = useContext(AuthContext);
+	const { state: { isLogged }, logOutUser } = useContext(AuthContext);
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggle = () => setIsOpen(!isOpen);
@@ -33,7 +33,7 @@ const BasePage = ({ children }) => {
 									<NavLink href="/login">Favorites</NavLink>
 								</NavItem>
 								<NavItem>
-									<NavLink href="/logout">logout</NavLink>
+									<NavLink href="/logout" onClick={() => logOutUser(false)}>Logout</NavLink>
 								</NavItem>
 							</>
 							: <>

@@ -72,7 +72,7 @@
          // plain text password is used for simplicity, hashed passwords should be used in production applications
          if (!context.Users.Any())
          {
-            context.Users.Add(new User { FirstName = "Test", LastName = "User", Username = "test", Password = "test" });
+            context.Users.Add(new User { FirstName = "Test", LastName = "User", Username = "test", Password = "test", UserRole = 1 });
             context.SaveChanges();
          }
 
