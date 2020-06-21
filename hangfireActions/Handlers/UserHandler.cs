@@ -1,16 +1,17 @@
-﻿using System;
-
-namespace HangfireActions
+﻿namespace HangfireActions
 {
-    public interface IUserHandler
-    {
-        void RegisterNewUser();
-    }
-    public class UserHandler:IUserHandler,IHandler
-    {
-        public void RegisterNewUser()
-        {
-              Console.WriteLine("It works");
-        }
-    }
+   using System;
+
+   public interface IUserHandler
+   {
+      void RegisterNewUser();
+   }
+
+   public class UserHandler : IUserHandler, IHandler
+   {
+      public void RegisterNewUser()
+      {
+         Console.WriteLine("It works");
+      }
+   }
 }
