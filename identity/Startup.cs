@@ -1,14 +1,15 @@
 ﻿namespace IdentityService
 {
    using System;
+   using System.Collections.Generic;
    using System.Linq;
    using System.Text;
+   using HangfireActions;
    using IdentityService.Entities;
    using IdentityService.Helpers;
    using IdentityService.Services;
    using Microsoft.AspNetCore.Authentication.JwtBearer;
    using Microsoft.AspNetCore.Builder;
-   using Microsoft.AspNetCore.Hosting;
    using Microsoft.EntityFrameworkCore;
    using Microsoft.Extensions.Configuration;
    using Microsoft.Extensions.DependencyInjection;
@@ -64,6 +65,12 @@
             };
          });
          services.AddScoped<IUserService, UserService>();
+
+         RegisterController.AddDbConnectionStrings(new Dictionary<string, string>
+         {
+            { "IdentityConnection", this.Configuration.GetConnectionString("IdentityConnectionString") },
+            { "AppDbConnectionString", this.Configuration.GetConnectionString("AppDbConnectionString") },
+         });
       }
 
       public void Configure(IApplicationBuilder app, DataContext context)

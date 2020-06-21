@@ -9,6 +9,8 @@ const apiInstance = axios.create({
 	responseType: "json",
 	timeout: 30000
 });
+// TODO: find time to refactor this to be generic  once I have enough done to defend the project
+// No need for 2 3 or more instances and repeated code for them
 export const authInstanceActions = async (method, url, data) => {
 	try {
 		let response;
