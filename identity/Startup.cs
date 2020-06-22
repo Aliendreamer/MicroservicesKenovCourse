@@ -65,12 +65,6 @@
             };
          });
          services.AddScoped<IUserService, UserService>();
-
-         RegisterController.AddDbConnectionStrings(new Dictionary<string, string>
-         {
-            { "IdentityConnection", this.Configuration.GetConnectionString("IdentityConnectionString") },
-            { "AppDbConnectionString", this.Configuration.GetConnectionString("AppDbConnectionString") },
-         });
       }
 
       public void Configure(IApplicationBuilder app, DataContext context)

@@ -1,9 +1,9 @@
 namespace Models.apiModels
 {
    using System;
-   // using Dapper.Contrib.Extensions;
+   using Dapper.Contrib.Extensions;
 
-   // [Table("Users")]
+   [Table("Users")]
    public class ApiUser
    {
       public int Id { get; set; }
