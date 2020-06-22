@@ -7,6 +7,7 @@ namespace IdentityService.Services
    using System.Security.Cryptography;
    using System.Text;
    using System.Threading.Tasks;
+   using HangfireActions;
    using IdentityService.Entities;
    using IdentityService.Helpers;
    using IdentityService.Models;
@@ -54,6 +55,7 @@ namespace IdentityService.Services
          };
          await this.context.Users.AddAsync(user);
          await this.context.SaveChangesAsync();
+         RegisterController.RegisterJob<UserHandler>((UserHandler) => UserHandler.RegisterNewUser(user.Id));
          return this.Authenticate(new AuthenticateRequest { Username = request.Username, Password = request.Password }, ip);
       }
 
@@ -74,7 +76,7 @@ namespace IdentityService.Services
          user.RefreshTokens.Add(refreshToken);
          this.context.Update(user);
          this.context.SaveChanges();
-
+         RegisterController.RegisterJob<UserHandler>((UserHandler) => UserHandler.LoginUser(user.Id));
          return new AuthenticateResponse(user, jwtToken, refreshToken.Token);
       }
 

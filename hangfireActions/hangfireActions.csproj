@@ -11,6 +11,8 @@
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.*" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.*"/>
     <PackageReference Include="Dapper" Version="2.0.35"/>
+    <PackageReference Include="Dapper.Contrib" Version="2.0.35"/>
+    <ProjectReference Include="..\models\models.csproj" />
     <PackageReference Include="System.data.SqlClient" Version="4.8.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

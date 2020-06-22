@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Server.Models
+﻿namespace Server.Models
 {
+    using System;
+
     public class Book
     {
         public int Id { get; set; }

@@ -31,7 +31,6 @@
             return this.BadRequest(new { message = "Username or password is incorrect" });
 
          this.SetTokenCookie(response.RefreshToken);
-
          return this.Ok(response);
       }
 

@@ -1,8 +1,7 @@
 namespace HangfireActions
 {
    using System;
-   public interface IHandler
-   {
 
-   }
+   public interface IHandler {}
+
 }

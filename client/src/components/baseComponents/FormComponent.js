@@ -17,7 +17,7 @@ const FormComponent = ({ isLogin }) => {
 		if (response.data) {
 			localStorage.setItem("jwtToken", response.data.jwtToken);
 			loginUser(true);
-			history.push("/account");
+			history.push("/");
 			// var retrievedObject = localStorage.getItem('testObject');
 		}
 		if (response.error) {
