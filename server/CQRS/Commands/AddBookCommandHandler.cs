@@ -24,7 +24,6 @@ namespace Server.CQRS.Commands
          var success = result == 1;
          if (success)
          {
-            RegisterController.RegisterJob<UserHandler>((UserHandler) => UserHandler.RegisterNewUser());
             return new UnifiedResponse { Success = true };
          }
 

@@ -6,6 +6,7 @@ import AccountPage from "./components/pageComponents/AccountPage";
 import HomePage from "./components/pageComponents/HomePage";
 import BasePage from "./components/baseComponents/BasePage";
 import RegisterPage from "./components/pageComponents/RegisterPage";
+import LogOutPage from "./components/pageComponents/LogoutPage";
 import ErrorBoundary from "./components/baseComponents/ErrorBoundary";
 
 function App() {
@@ -14,18 +15,14 @@ function App() {
 			<ErrorBoundary>
 				<BasePage>
 					<Switch>
-						<Route path="/" exact>
-							<HomePage />
-						</Route>
+						<Route path="/" exact component={HomePage} />
 						<Route path="/login">
 							<LoginPage />
 						</Route>
 						<Route path="/register">
 							<RegisterPage />
 						</Route>
-						<Route path="/logout">
-							<RegisterPage />
-						</Route>
+						<Route path="/logout" component={LogOutPage} />
 						<PrivateRoute path="/account" exact component={AccountPage} />
 					</Switch>
 				</BasePage>

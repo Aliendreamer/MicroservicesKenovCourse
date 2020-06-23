@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context as AuthContext } from "../../contexts/authContext";
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const BasePage = ({ children }) => {
 	const { state: { isLogged }, logOutUser } = useContext(AuthContext);
@@ -21,27 +22,27 @@ const BasePage = ({ children }) => {
 						{isLogged
 							? <>
 								<NavItem>
-									<NavLink to="/account" replace={true}>Account</NavLink>
+									<Link to="/account" replace={true}>Account</Link>
 								</NavItem>
 								<NavItem>
-									<NavLink href="/">BookList</NavLink>
+									<Link to="/">BookList</Link>
 								</NavItem>
 								<NavItem>
-									<NavLink href="/">Authors</NavLink>
+									<Link to="/">Authors</Link>
 								</NavItem>
 								<NavItem>
-									<NavLink href="/login">Favorites</NavLink>
+									<Link to="/login">Favorites</Link>
 								</NavItem>
 								<NavItem>
-									<NavLink href="/logout" onClick={() => logOutUser(false)}>Logout</NavLink>
+									<Link to="/logout">Logout</Link>
 								</NavItem>
 							</>
 							: <>
 								<NavItem>
-									<NavLink href="/login">Login</NavLink>
+									<Link to="/login">Login</Link>
 								</NavItem>
 								<NavItem>
-									<NavLink href="/register">Register</NavLink>
+									<Link to="/register">Register</Link>
 								</NavItem>
 							</>}
 					</Nav>
