@@ -35,8 +35,6 @@ namespace Server
 
          services.AddTransient<IBase, Base>();
 
-         services.AddTransient(typeof(IBaseQuery<>), typeof(BaseQuery<>));
-
          services.AddTransient(typeof(IBaseCommand), typeof(BaseCommand));
       }
 

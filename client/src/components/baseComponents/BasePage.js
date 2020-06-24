@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-closing-tag-location */
 import React, { useEffect, useState, useContext } from "react";
 import { Context as AuthContext } from "../../contexts/authContext";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const BasePage = ({ children }) => {
-	const { state: { isLogged }, logOutUser } = useContext(AuthContext);
+	const { state: { isLogged } } = useContext(AuthContext);
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggle = () => setIsOpen(!isOpen);

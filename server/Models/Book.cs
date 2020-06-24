@@ -1,8 +1,9 @@
 ﻿namespace Server.Models
 {
-    using System;
+   using System;
+   using System.Text.Json.Serialization;
 
-    public class Book
+   public class Book
     {
         public int Id { get; set; }
 
@@ -11,6 +12,8 @@
         public int AuthorId { get; set; }
 
         public Author Author { get; set; }
+
+        public string Url { get; set; }
 
         public int Pages { get; set; }
 

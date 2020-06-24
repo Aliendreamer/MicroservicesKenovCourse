@@ -19,9 +19,7 @@ function App() {
 						<Route path="/login">
 							<LoginPage />
 						</Route>
-						<Route path="/register">
-							<RegisterPage />
-						</Route>
+						<Route path="/register" exact component={RegisterPage} />
 						<Route path="/logout" component={LogOutPage} />
 						<PrivateRoute path="/account" exact component={AccountPage} />
 					</Switch>
