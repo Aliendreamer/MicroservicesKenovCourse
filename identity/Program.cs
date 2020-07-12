@@ -8,6 +8,7 @@ namespace IdentityService
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+            // test Guthub push
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
