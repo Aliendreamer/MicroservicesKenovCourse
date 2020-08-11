@@ -9,6 +9,7 @@ namespace HangfireActions
    {
       public static void RegisterJob<T>(Expression<Action<T>> action) where T : class
       {
+         //Todo just showing up
          JobStorage.Current = new SqlServerStorage("Server=localhost; Database=Hangfire;User=sa;Password=p@ssw0rd;",new SqlServerStorageOptions
                 {
                     CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
